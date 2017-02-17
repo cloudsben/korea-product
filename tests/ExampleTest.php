@@ -22,15 +22,25 @@ class ExampleTest extends TestCase
 
     public function testGetcontent()
     {
-        $response = $this->json('get', '/1');
-        $items = $response->getContent();
+        $this->json('get', '/1')
+                ->seeJson([
+                    'status' => 'success',
+                ]);
 
-        $this->assertStringStartsWith('anchorBoxId', $items[0]['id']);
-        $this->assertInternalType('string', $items[0]['title']);
-        $this->assertInternalType('string', $items[0]['price']);
-        $this->assertInternalType('string', $items[0]['price']);
-        $this->assertStringStartsWith('http://', $items[0]['pic']);
-        $this->assertStringStartsWith('http://', $items[0]['url']);
+        $this->json('get', '/1')
+            ->seeJson([
+                'id' => 'anchorBoxId_8721',
+                'title' => '에브리 니트 (vest)',
+                'price' => '15,000원',
+            ]);;
+
+
+//        $this->assertStringStartsWith('anchorBoxId', $items[0]['id']);
+//        $this->assertInternalType('string', $items[0]['title']);
+//        $this->assertInternalType('string', $items[0]['price']);
+//        $this->assertInternalType('string', $items[0]['price']);
+//        $this->assertStringStartsWith('http://', $items[0]['pic']);
+//        $this->assertStringStartsWith('http://', $items[0]['url']);
 
     }
 }
